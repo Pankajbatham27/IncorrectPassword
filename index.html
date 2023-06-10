@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+   
+    <style>
+        
+        #coverButton {
+            position: relative;
+            max-width: 200px;
+            
+        }
+
+        #hover_me{
+            position: absolute;
+            left: 0%;
+            transition: .1s ease-in-out; 
+        }
+
+        input{
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    
+    <div id="coverButton">
+        <input type="input" onkeyup="inputChange(this.value)" id="password" maxlength="10" minlength="10" placeholder="Password">
+        <button id="hover_me">Button</button>
+    </div>
+    
+    
+
+
+    <script>
+
+        function calculateDistance(x1, y1, x2, y2) {
+            const xDistance = x2 - x1;
+            const yDistance = y2 - y1;
+            
+            return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+        }
+
+        document.addEventListener('mousemove', (event) => {
+        const hoverMe = document.getElementById('hover_me');
+        const hoverMeRect = hoverMe.getBoundingClientRect();
+        const cursorX = event.clientX;
+        const cursorY = event.clientY;
+        
+        const distance = calculateDistance(
+            cursorX,
+            cursorY,
+            hoverMeRect.left + hoverMeRect.width / 2,
+            hoverMeRect.top + hoverMeRect.height / 2
+        );
+        
+        const threshold = 30;
+        
+        if (distance <= threshold) {
+            myFunction();
+        }
+        });
+
+
+        function inputChange(valueHere) {
+            const element = document.getElementById('hover_me');
+            if(valueHere.length === 10){
+                element.style.left = '0%';
+                element.style.backgroundColor = 'green';
+                element.style.color = '#fff';
+            }else{
+                element.style.backgroundColor = 'initial';
+                element.style.color = '#000';
+            }
+        }
+
+        
+        function myFunction() {
+        
+            const element = document.getElementById('hover_me');
+            const computedStyle = window.getComputedStyle(element);
+            const position = computedStyle.getPropertyValue('left');
+            const password = document.getElementById('password');
+        
+            if(password.value.length !== 10){
+                if (position === '0px') {
+                    element.style.left = '100%';
+                    
+                } 
+                if(position === '200px'){
+                    element.style.left = '0%';
+                }
+            }else{
+                element.style.left = '0%';
+                
+            }
+            
+        }
+
+    </script>
+</body>
+</html>
