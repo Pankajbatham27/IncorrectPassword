@@ -5,13 +5,12 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
    
     <style>
         
         #coverButton {
             position: relative;
-            max-width: 200px;
+            width: 260px;
             
         }
 
@@ -22,25 +21,55 @@
         }
 
         input{
-            padding: 10px;
             margin-bottom: 20px;
             width: 100%;
 
         }
 
-        
+        body {
+            background: #f5f6fa;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        input#password {
+            border: none !important;
+            outline: 0 !important;
+            box-shadow: 0px 3px 20px -8px #0000005e;
+            padding: 16px 0;
+            padding-left: 10px;
+        }
+
+        button#hover_me {
+            border-radius: 0;
+            padding: 8px 21px;
+            background: black;
+            border: none;
+            color: #fff;
+        }
+
+        div#coverButton {
+            height: 120px;
+        }
+
+        button#hover_me {
+            bottom: 0;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     
     <div id="coverButton">
-        <input type="input" onkeyup="inputChange(this.value)" id="password" maxlength="10" minlength="10" placeholder="Password">
-        <button id="hover_me">Button</button>
+        <label>Enter your 10 digit password</label>
+        <input type="input" onkeyup="inputChange(this.value)" id="password" maxlength="10" tabindex="-1" minlength="10" placeholder="Password">
+        <button id="hover_me">Submit</button>
     </div>
     
-    
-
 
     <script>
 
@@ -64,8 +93,8 @@
             hoverMeRect.top + hoverMeRect.height / 2
         );
         
-        const threshold = 30;
-        
+        const threshold = 50;
+
         if (distance <= threshold) {
             myFunction();
         }
@@ -75,12 +104,13 @@
         function inputChange(valueHere) {
             const element = document.getElementById('hover_me');
             if(valueHere.length === 10){
-                element.style.left = '0%';
+                element.style.left = '0';
+                element.style.right = 'initial';
                 element.style.backgroundColor = 'green';
                 element.style.color = '#fff';
             }else{
-                element.style.backgroundColor = 'initial';
-                element.style.color = '#000';
+                element.style.backgroundColor = '#000';
+                element.style.color = '#fff';
             }
         }
 
@@ -88,25 +118,29 @@
         function myFunction() {
         
             const element = document.getElementById('hover_me');
+
             const computedStyle = window.getComputedStyle(element);
+
             const position = computedStyle.getPropertyValue('left');
             const password = document.getElementById('password');
         
+            
             if(password.value.length !== 10){
                 if (position === '0px') {
-                    element.style.left = '100%';
+                    element.style.right = '0';
+                    element.style.left = 'initial';
                     
                 } 
-                if(position === '200px'){
-                    element.style.left = '0%';
+                if(position >= '170px'){
+                    element.style.left = '0';
+                    element.style.right = 'initial';
                 }
             }else{
-                element.style.left = '0%';
-                
+                element.style.left = '0';
+                element.style.right = 'initial';
             }
             
         }
 
     </script>
 </body>
-</html>
